@@ -1,2 +1,2 @@
-# garcomvirtual-backend
-Repositório com arquivos da api
+# VirtualWaiterBackEnd
+Repository for virtual waiter back end in node.js
