@@ -1,3 +1,6 @@
+import * as DotEnv from 'dotenv';
+DotEnv.config();
+
 import { createConnection } from 'typeorm';
 import { Request, Response } from 'express';
 import * as express from 'express';
@@ -91,9 +94,7 @@ createConnection(<PostgresConnectionOptions>ormConfig).then(async connection => 
 
     /**Aplication settings ends*/
 
-    // await connection.synchronize(true); // --> Isso aqui RESETA SEU BANCO!
-    // await connection.runMigrations();
-
+    await connection.synchronize(true); // --> Isso aqui RESETA SEU BANCO!
 }).catch(error => console.log('TypeORM connection error: ', error));
 
 /**Support Functions */

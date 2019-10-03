@@ -4,5 +4,5 @@ export const dbConfig = {
     port: (parseInt(process.env.DB_PORT, 0) || 5432),
     user: (process.env.DB_USERNAME || 'postgres'),
     pass: (process.env.DB_PASSWORD || '123456'),
-    database: (process.env.DB_DATABASE || 'garcomvirtual')
+    database: (process.env.DB_DATABASE || 'garcomvirtual')    
   };
