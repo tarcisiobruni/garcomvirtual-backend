@@ -1,12 +1,8 @@
 import { dbConfig } from './commom/dbconfig'
 
 export const ormConfig = {
-    "type": dbConfig.type,
-    "host": dbConfig.host,
-    "port": dbConfig.port,
-    "username": dbConfig.user,
-    "password": dbConfig.pass,
-    "database": dbConfig.database,
+    type: dbConfig.type,
+    url: dbConfig.url,
     "entities": [
         "./build/entity/*{.js,.ts}"
     ],

@@ -1,6 +1,5 @@
-import * as DotEnv from 'dotenv';
-DotEnv.config();
-
+// import * as DotEnv from 'dotenv';
+// DotEnv.config();
 import { createConnection } from 'typeorm';
 import { Request, Response } from 'express';
 import * as express from 'express';
