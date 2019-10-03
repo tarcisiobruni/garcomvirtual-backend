@@ -3,12 +3,15 @@ import { Request, Response } from 'express';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import { AppRoutes } from './routes/index.js';
+import { appConfig } from './commom/appconfig'
 
 import cookieParser = require('cookie-parser');
 import logger = require('morgan');
 import cors = require('cors');
 import debug from 'debug';
 import http = require('http');
+import { ormConfig } from './ormconfig';
+import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 
 const invalidindex = -1;
 const zero = 0;
@@ -19,7 +22,7 @@ const app = express();
 /**
  * Get port from environment and store in Express.
  */
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(appConfig.port);
 app.set('port', port);
 
 /**
@@ -30,7 +33,7 @@ const server = http.createServer(app);
 // create connection with database
 // note that it's not active database connection
 // TypeORM creates connection pools and uses them for your requests
-createConnection().then(async connection => {
+createConnection(<PostgresConnectionOptions>ormConfig).then(async connection => {
 
     /**Aplication settings Begins*/
     app.use(bodyParser.json());
@@ -48,16 +51,11 @@ createConnection().then(async connection => {
         if (req.url.indexOf('/api') === invalidindex) {
             res.sendFile(path.join(__dirname, '../public', 'index.html'));
         } else { */
-            return next();
+        return next();
         /* } */
     });
 
-    const allowedOrigins = ['http://localhost:3000',
-        'http://localhost:4200',
-        'http://localhost:8100',
-        'http://localhost',
-        'http://virtualwaiterbucket.s3-website-sa-east-1.amazonaws.com',
-        'http://ec2-18-231-198-246.sa-east-1.compute.amazonaws.com'];
+    const allowedOrigins = ['http://localhost:3000'];
 
     app.use(cors({
         origin: (origin, callback) => {
