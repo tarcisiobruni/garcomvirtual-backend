@@ -18,10 +18,14 @@ export class Usuario {
     @Column('varchar', { length: 50, unique: true })
     uid: string;
 
+    @Column('varchar', { length: 50, unique: true })
+    password: string;
+
     @Column('int', { nullable: false })
     enumorigemcriacao: EnumOrigemCriacao;
 
     @Column({ nullable: false })
     ativo: boolean;
+
 
 }
