@@ -57,7 +57,7 @@ createConnection(<PostgresConnectionOptions>ormConfig).then(async connection => 
         /* } */
     });
 
-    const allowedOrigins = ['http://localhost:3000'];
+    const allowedOrigins = ['*'];
 
     app.use(cors({
         origin: (origin, callback) => {
