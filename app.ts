@@ -57,7 +57,7 @@ createConnection(<PostgresConnectionOptions>ormConfig).then(async connection => 
         /* } */
     });
 
-    const allowedOrigins = ['*'];
+    const allowedOrigins = ['*',"Access-Control-Allow-Headers", "X-Requested-With","Access-Control-Allow-Origin"];
 
     app.use(cors({
         origin: (origin, callback) => {
