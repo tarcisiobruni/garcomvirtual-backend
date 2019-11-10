@@ -27,6 +27,23 @@ export let selectById = async (id: number): Promise<Usuario> => {
     }
 };
 
+export let selectByEmail = async (login: string): Promise<Usuario> => {
+    try {
+        const email = login;
+        const user = await getRepository(Usuario)
+            .createQueryBuilder('usuario')
+            .select()
+            .where('email = :email',
+                { email: email })
+            .getOne();
+        console.log(user)
+        return user;
+    } catch (err) {
+        const det = HandleErr(err);
+        throw new Error(`{"codigo": ${det.codigo},"message": ${det.message}}`);
+    }
+};
+
 export let save = async (body: any): Promise<Usuario[]> => {
     try {
         const repository = getRepository(Usuario);
@@ -57,13 +74,13 @@ export let remove = async (body: any): Promise<Usuario[]> => {
         const repository = getRepository(Usuario);
         const ArrayIds = Array.isArray(body.id) ? body.id : [body.id];
         const usuarios = await repository.findByIds(ArrayIds);
-        
+
         if (usuarios !== undefined && usuarios.length > zero) {
             usuarios.forEach(element => element.ativo = false);
             const removedData = await repository.save(usuarios);
             return removedData;
         }
-        
+
         const oldData = await repository.create(body);
         return oldData;
     } catch (err) {
