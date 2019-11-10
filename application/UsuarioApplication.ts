@@ -1,6 +1,7 @@
 import { statusHTTPCode } from './../utils/statusHTTP';
 import * as UsuarioService from '../service/UsuarioService';
 import { Request, Response } from 'express';
+import * as bcrypt from 'bcryptjs'
 
 export let get = async (request: Request, response: Response) => {
     try{
@@ -27,9 +28,20 @@ export let getById = async (request: Request, response: Response) => {
 };
 
 export let post = async (request: Request, response: Response) => {
+    //Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashPass = await bcrypt.hash(request.body.password,salt);
+    
+    const user = {
+        email: request.body.email,
+        password: hashPass,
+        enumorigemcriacao: request.body.enumorigemcriacao,
+        ativo: request.body.ativo
+    }
+    
     try{
         // TODO: Validacao das regras de negocio
-        const usuario = await UsuarioService.save(request.body);
+        const usuario = await UsuarioService.save(user);
         response.status(statusHTTPCode.sucessResponse.Created);
         response.send(usuario);
     }catch(err){

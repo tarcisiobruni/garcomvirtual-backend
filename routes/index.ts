@@ -1,5 +1,6 @@
 import { ApiDocs } from './ApiDocs'
 
+import { ApiAuth } from './AuthRoute';
 import { AvaliacaoRoutes } from './AvaliacaoRoutes';
 import { CardapioRoutes } from './CardapioRoutes';
 import { ComandaRoutes } from './ComandaRoutes';
@@ -31,6 +32,8 @@ const allRoutes =
         ReportRoutes.produtosmaisvendidosentredatas,
 
     ];
+
+ApiAuth.forEach(element => allRoutes.push(element));
 
 ApiDocs.forEach(element => allRoutes.push(element));
 
