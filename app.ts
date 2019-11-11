@@ -15,6 +15,10 @@ import http = require('http');
 import { ormConfig } from './ormconfig';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 
+
+import * as VerifyToken from './utils/verify'
+
+
 const invalidindex = -1;
 const zero = 0;
 
@@ -60,31 +64,39 @@ app.use((req, res, next) => {/*
 });
 
 const allowedOrigins = ['http://localhost:3000',
-'http://localhost:4200',
-'http://localhost:8100',
-'http://localhost'];
+    'http://localhost:4200',
+    'http://localhost:8100',
+    'http://localhost'];
 
 app.use(cors({
-origin: (origin, callback) => {
-    // allow requests with no origin
-    // (like mobile apps or curl requests)
-    if (!origin) { return callback(null, true); }
-    if (allowedOrigins.indexOf(origin) === invalidindex) {
-        const msg = 'The CORS policy for this site does not ' +
-            'allow access from the specified Origin.';
-        return callback(new Error(msg), false);
+    origin: (origin, callback) => {
+        // allow requests with no origin
+        // (like mobile apps or curl requests)
+        if (!origin) { return callback(null, true); }
+        if (allowedOrigins.indexOf(origin) === invalidindex) {
+            const msg = 'The CORS policy for this site does not ' +
+                'allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
     }
-    return callback(null, true);
-}
 }));
 
 // register all application routes
 AppRoutes.forEach(route => {
-    app[route.method](route.path, (request: Request, response: Response, next: Function) => {
-        route.action(request, response)
-            .then(() => next)
-            .catch(err => next(err));
-    });
+    // if (route.path !== '/api/auth') {
+    //     app[route.method](route.path, VerifyToken.auth ,(request: Request, response: Response, next: Function) => {
+    //         route.action(request, response)
+    //             .then(() => next)
+    //             .catch(err => next(err));
+    //     });
+    // } else {
+        app[route.method](route.path, (request: Request, response: Response, next: Function) => {
+            route.action(request, response)
+                .then(() => next)
+                .catch(err => next(err));
+        });
+    // }
 });
 
 

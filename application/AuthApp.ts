@@ -1,7 +1,9 @@
+import { tkConfig } from './../commom/tokenConfig';
 import * as UsuarioService from '../service/UsuarioService';
 import { statusHTTPCode } from './../utils/statusHTTP';
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcryptjs'
+import * as jwt from 'jsonwebtoken'
 
 export let post = async (request: Request, response: Response) => {
     try{
@@ -18,8 +20,10 @@ export let post = async (request: Request, response: Response) => {
         const validPass = await bcrypt.compare(pass,usuario.password)
         if(validPass){
             response.status(statusHTTPCode.sucessResponse.Accepted);
+            const token = jwt.sign({_id: usuario.id }, tkConfig.token,{"expiresIn": "2h"})
+            response.header('auth-token',token)
             response.send(usuario);
-        }        
+        }
         response.status(statusHTTPCode.clientErrorResponse.Unauthorized);
         response.send("Invalid password");
     }catch(err){
