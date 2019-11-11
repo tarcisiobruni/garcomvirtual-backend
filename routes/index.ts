@@ -19,6 +19,7 @@ import { PlanoRoutes } from './PlanoRoutes';
 import { ProdutoRoutes } from './ProdutoRoutes';
 import { SecaoRoutes } from './SecaoRoutes';
 import { UsuarioRoutes } from './UsuarioRoutes';
+import { PagamentoRoutes } from './PagamentoRoutes'
 
 import * as ReportRoutes from './ReportRoutes';
 
@@ -70,6 +71,8 @@ PlanoRoutes.forEach(element => allRoutes.push(element));
 ProdutoRoutes.forEach(element => allRoutes.push(element));
 
 SecaoRoutes.forEach(element => allRoutes.push(element));
+
+PagamentoRoutes.forEach(element => allRoutes.push(element));
 
 UsuarioRoutes.forEach(element => allRoutes.push(element));
 
