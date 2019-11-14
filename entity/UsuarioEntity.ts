@@ -15,11 +15,8 @@ export class Usuario {
     })
     email: string;
 
-    @Column('varchar', { length: 50, unique: true, nullable: true })
+    @Column('varchar', { length: 50, unique: true })
     uid: string;
-
-    @Column('varchar', { length: 1024, nullable: false })
-    password: string;
 
     @Column('int', { nullable: false })
     enumorigemcriacao: EnumOrigemCriacao;
