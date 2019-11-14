@@ -68,7 +68,7 @@ const allowedOrigins = ['http://localhost:3000',
     'http://localhost:8100',
     'http://localhost',
     'https://garcomvirtual-web.web.app',
-    'https://garcomvirtual-web.firebaseapp.com/'
+    'https://garcomvirtual-web.firebaseapp.com'
 ];
 
 app.use(cors({
