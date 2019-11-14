@@ -66,7 +66,10 @@ app.use((req, res, next) => {/*
 const allowedOrigins = ['http://localhost:3000',
     'http://localhost:4200',
     'http://localhost:8100',
-    'http://localhost'];
+    'http://localhost',
+    'https://garcomvirtual-web.web.app',
+    'https://garcomvirtual-web.firebaseapp.com/'
+];
 
 app.use(cors({
     origin: (origin, callback) => {
